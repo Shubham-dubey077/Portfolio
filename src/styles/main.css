@@ -1,0 +1,242 @@
+/* ===== DESIGN SYSTEM (DARK ACADEMIA) ===== */
+:root {
+  --bg: #f4efe6;            /* parchment background */
+  --ink: #1a1410;           /* deep brown-black text */
+
+  --primary: #3b2f2f;       /* dark coffee brown */
+  --secondary: #6b4f3a;     /* warm brown */
+  --accent: #a68a64;        /* antique gold */
+
+  --paper: #ffffff;
+  --muted: #e8dfd1;
+
+  --radius: 14px;
+  --transition: all 0.3s ease;
+
+  --shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--ink);
+  transition: var(--transition);
+  line-height: 1.6;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  height: 65px;
+  background: var(--primary);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  letter-spacing: 0.5px;
+}
+
+.navbar a {
+  color: var(--muted);
+  margin-left: 20px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.navbar a:hover {
+  color: var(--accent);
+}
+
+/* ===== LAYOUT ===== */
+.container {
+  display: flex;
+  min-height: calc(100vh - 65px);
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 240px;
+  background: var(--primary);
+  padding: 20px;
+  color: var(--paper);
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-family: "Georgia", serif;
+  letter-spacing: 1px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: var(--radius);
+  color: var(--muted);
+  text-decoration: none;
+  transition: var(--transition);
+  border-left: 2px solid transparent;
+}
+
+.sidebar a:hover {
+  background: rgba(166, 138, 100, 0.15);
+  border-left: 2px solid var(--accent);
+  transform: translateX(5px);
+}
+
+.sidebar a.active {
+  background: var(--secondary);
+  color: var(--paper);
+}
+
+/* ===== MAIN ===== */
+.main {
+  flex: 1;
+  padding: 35px;
+}
+
+/* ===== PROFILE CARD ===== */
+.profile-card {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  background: var(--paper);
+  padding: 28px;
+  border-radius: var(--radius);
+  margin-bottom: 25px;
+  border: 1px solid #e5dccf;
+  box-shadow: var(--shadow);
+}
+
+/* IMAGE */
+.profile-card img {
+  width: 135px;
+  height: 135px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: var(--transition);
+}
+
+.profile-card img:hover {
+  transform: scale(1.05);
+}
+
+/* ===== PROFILE TEXT ===== */
+.profile-info h1 {
+  margin-bottom: 8px;
+  color: var(--primary);
+  font-family: "Georgia", serif;
+}
+
+.profile-info p {
+  color: #3a2f2a;
+}
+
+/* ===== LINKS ===== */
+.links {
+  margin-top: 10px;
+}
+
+.links a {
+  margin-right: 10px;
+  padding: 7px 14px;
+  background: var(--secondary);
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.links a:hover {
+  background: var(--accent);
+}
+
+/* ===== GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: var(--paper);
+  padding: 25px;
+  border-radius: var(--radius);
+  text-align: center;
+  border: 1px solid #e8dfd1;
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  background: var(--muted);
+}
+
+/* ===== BUTTON ===== */
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: "Georgia", serif;
+}
+
+button:hover {
+  background: var(--accent);
+  color: #1a1410;
+}
+
+/* ===== INPUT ===== */
+input {
+  padding: 10px;
+  border-radius: var(--radius);
+  border: 1px solid #d6c9b8;
+  margin: 6px;
+  background: #fffdf9;
+}
+
+input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 15px;
+  background: var(--primary);
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}
