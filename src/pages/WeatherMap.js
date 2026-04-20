@@ -1,35 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+
+// ✅ ICON FIX
+import L from "leaflet";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+const DefaultIcon = L.icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 function WeatherMap() {
+  const [position, setPosition] = useState([25.4358, 81.8463]);
 
-  // ✅ Dummy Weather Data
-  const dummyWeather = {
+  const [weather, setWeather] = useState({
     name: "Prayagraj",
     temp: 32,
-    condition: "Sunny"
-  };
+    condition: "Sunny",
+  });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setPosition([
+          pos.coords.latitude,
+          pos.coords.longitude,
+        ]);
+
+        setWeather((prev) => ({
+          ...prev,
+          name: "Your Location",
+        }));
+      },
+      () => {
+        console.log("Location permission denied");
+      }
+    );
+  }, []);
 
   return (
     <div style={{ padding: "20px" }}>
-      
       <h2>Weather + Map 🌍</h2>
 
-      {/* WEATHER UI */}
+      {/* WEATHER */}
       <div className="weather-card">
-        <h3>{dummyWeather.name}</h3>
-        <p>🌡 Temp: {dummyWeather.temp} °C</p>
-        <p>🌤 {dummyWeather.condition}</p>
+        <h3>{weather.name}</h3>
+        <p>🌡 Temp: {weather.temp} °C</p>
+        <p>🌤 {weather.condition}</p>
       </div>
 
-      {/* MAP (OpenStreetMap) */}
-      <iframe
-        title="Prayagraj Map"
-        width="100%"
-        height="400"
-        style={{ borderRadius: "10px", border: "none", marginTop: "20px" }}
-        src="https://api.openweathermap.org/data/2.5/weather?q=Prayagraj&units=metric&appid=e97bf29829783fc9d9fe2399d774ef23"
-      ></iframe>
+      {/* MAP */}
+      <div style={{ marginTop: "20px" }}>
+        <MapContainer
+          center={position}
+          zoom={13}
+          style={{ height: "400px", width: "100%", borderRadius: "10px" }}
+        >
+          <TileLayer
+            attribution="&copy; OpenStreetMap contributors"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
 
+          <Marker position={position}>
+            <Popup>You are here 📍</Popup>
+          </Marker>
+        </MapContainer>
+      </div>
     </div>
   );
 }

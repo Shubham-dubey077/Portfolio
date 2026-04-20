@@ -1,21 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 function Navbar() {
+  const location = useLocation();
+
+  // 👉 Login page par navbar hide
+  if (location.pathname === "/") return null;
+
   return (
-    <div className="navbar">
+    <header className="navbar">
 
-      {/* LEFT SIDE */}
-      <h2>My Portfolio</h2>
-
-      {/* RIGHT SIDE */}
-      <div>
-        <Link to="/dashboard">Home</Link>
-        <Link to="/">Login</Link>
-        <Link to="/register">Register</Link>
+      {/* LEFT */}
+      <div className="nav-left">
+        <h2 className="logo">Shubham</h2>
       </div>
 
-    </div>
+      {/* RIGHT */}
+      <nav className="nav-right">
+        <NavLink to="/dashboard">Home</NavLink>
+        <NavLink to="/">Login</NavLink>
+        <NavLink to="/register">Register</NavLink>
+      </nav>
+
+    </header>
   );
 }
 

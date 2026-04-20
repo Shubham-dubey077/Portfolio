@@ -1,11 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Counter from "./pages/Counter";
 import Stopwatch from "./pages/Stopwatch";
@@ -14,25 +15,24 @@ import Palindrome from "./pages/Palindrome";
 import Armstrong from "./pages/Armstrong";
 import Calculator from "./pages/Calculator";
 import Prime from "./pages/Prime";
-import Register from "./pages/Register";
 import WeatherMap from "./pages/WeatherMap";
 
 import "./styles/main.css";
 
-function App() {
+function Layout() {
+  const location = useLocation();
+
+  const isAuthPage = location.pathname === "/" || location.pathname === "/register";
+
   return (
-    <Router>
-      
-      {/* TOP NAVBAR */}
-      <Navbar />
+    <div className="app-wrapper">
 
-      {/* MAIN LAYOUT */}
+      {/* Navbar only when NOT login/register */}
+      {!isAuthPage && <Navbar />}
+
       <div className="container">
+        {!isAuthPage && <Sidebar />}
 
-        {/* LEFT SIDEBAR */}
-        <Sidebar />
-
-        {/* RIGHT CONTENT */}
         <div className="main">
           <Routes>
             <Route path="/" element={<Login />} />
@@ -48,12 +48,19 @@ function App() {
             <Route path="/weathermap" element={<WeatherMap />} />
           </Routes>
         </div>
-
       </div>
 
-      {/* FOOTER */}
-      <Footer />
+      {/* Footer only when NOT login/register */}
+      {!isAuthPage && <Footer />}
 
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Layout />
     </Router>
   );
 }
